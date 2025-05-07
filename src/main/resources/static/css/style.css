@@ -1,0 +1,20 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 800px;
+}
+
+.list-group-item {
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.list-group-item:hover {
+    background-color: #e9ecef;
+}
+.todo-completed {
+    background-color: #e0e0e0; /* Gris clair */
+    text-decoration: line-through; /* Texte barré pour plus de visibilité */
+}
