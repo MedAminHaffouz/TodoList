@@ -2,6 +2,7 @@ package gl2.example.todolistapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,4 +32,20 @@ public class TodoService {
         }
         return null;
     }
+
+    public double getDailyCompletionRate() {
+        return repository.getDailyCompletionRate();
+    }
+
+    public long countTasksCreatedToday() {
+        LocalDate today = LocalDate.now();
+        return repository.countByCreationDate(today);
+    }
+
+    public long countTasksCompletedToday() {
+        LocalDate today = LocalDate.now();
+        return repository.countByCompletedDate(today);
+    }
 }
+
+

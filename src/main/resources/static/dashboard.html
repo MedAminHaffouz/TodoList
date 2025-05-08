@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistiques des Tâches</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Statistiques Journalières</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Tâches Créées Aujourd'hui</h5>
+                    <h2 class="card-text" id="tasksCreatedToday">0</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Tâches Terminées Aujourd'hui</h5>
+                    <h2 class="card-text" id="tasksCompletedToday">0</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Taux de Complétion</h5>
+                    <h2 class="card-text" id="completionRate">0%</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar"
+                 style="width: 0%" id="progressBar">
+                0%
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.2/dist/axios.min.js"></script>
+<script>
+    async function fetchStats() {
+        try {
+            const response = await axios.get('/api/todos/stats/daily');
+            const stats = response.data;
+
+            document.getElementById('tasksCreatedToday').innerText = stats.tasksCreatedToday;
+            document.getElementById('tasksCompletedToday').innerText = stats.tasksCompletedToday;
+            document.getElementById('completionRate').innerText = `${stats.completionRate.toFixed(2)}%`;
+            document.getElementById('progressBar').style.width = `${stats.completionRate}%`;
+            document.getElementById('progressBar').innerText = `${stats.completionRate.toFixed(2)}%`;
+        } catch (error) {
+            console.error('Erreur:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchStats();
+    });
+</script>
+</body>
+</html>

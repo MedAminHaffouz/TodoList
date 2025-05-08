@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import jakarta.persistence.*;
+import java.time.LocalDate;
+
 @Entity
 public class Todo {
     @Id
@@ -14,14 +17,25 @@ public class Todo {
     private String description;
     private boolean completed;
 
-    // Constructeurs, getters et setters
-    public Todo() {}
+    // Date de création (automatique)
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
+
+    // Date de complétion (null si non terminée)
+    @Column(name = "completed_date")
+    private LocalDate completedDate;
+
+    // Constructeurs
+    public Todo() {
+        this.creationDate = LocalDate.now(); // Date de création automatique
+    }
 
     public Todo(String title, String description) {
         this.title = title;
         this.description = description;
-        this.completed = false;
+        this.creationDate = LocalDate.now();
     }
+
 
     public Long getId() {
         return id;
@@ -51,8 +65,21 @@ public class Todo {
         return completed;
     }
 
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public LocalDate getCompletedDate() {
+        return completedDate;
+    }
+
     public void setCompleted(boolean completed) {
         this.completed = completed;
+        if (completed) {
+            this.completedDate = LocalDate.now(); // Date actuelle
+        } else {
+            this.completedDate = null; // Réinitialisation
+        }
     }
 
     @Override

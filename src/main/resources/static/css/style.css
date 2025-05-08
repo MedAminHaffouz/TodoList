@@ -18,3 +18,28 @@ body {
     background-color: #e0e0e0; /* Gris clair */
     text-decoration: line-through; /* Texte barré pour plus de visibilité */
 }
+
+/* Style pour les tâches terminées */
+.todo-completed {
+    background-color: #e0e0e0; /* Gris clair */
+    text-decoration: line-through; /* Texte barré */
+}
+
+/* Personnalisation des dates */
+.list-group-item small {
+    color: #6c757d;
+    font-size: 0.8em;
+}
+
+.todo-completed {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+.todo-completed:hover {
+    background-color: #d0d0d0;
+}
+
+.progress-bar {
+    transition: width 0.3s ease;
+}
